@@ -25,12 +25,12 @@ class KittiRasterizer:
         self._num_classes = self._num_voxel_x * self._num_voxel_y
         self._remove_unseen = remove_unseen
         self._min_points = min_points
-        self._accepted_types = {KittiType.Car}
-        self._car_like_labels = {KittiType.Car, KittiType.Van, KittiType.Truck}
+        self._accepted_types = {KittiType.Person}
+        self._car_like_labels = {KittiType.Person, KittiType.Table, KittiType.Chair}
         self._label_mapping = {
-            KittiType.Car: KittiType.Car,
-            KittiType.Van: KittiType.Car,
-            KittiType.Truck: KittiType.Car
+            KittiType.Person: KittiType.Person,
+            KittiType.Table: KittiType.Person,
+            KittiType.Chair: KittiType.Person
         }
 
     def get_mask(self, frame: KittiFrame):

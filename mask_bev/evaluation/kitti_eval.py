@@ -38,7 +38,7 @@ def mask_to_pred(masks, cls) -> [Prediction]:
             cnts = sorted(cnts, key=cv2.contourArea, reverse=True)
             cnt = cnts[0]
             ((cx, cy), (w, h), angle) = cv2.minAreaRect(cnt)
-            prediction = Prediction(type=KittiType.Car, alpha=0.0, dimensions=np.array([w, h, 0]),
+            prediction = Prediction(type=KittiType.Person, alpha=0.0, dimensions=np.array([w, h, 0]),
                                     location=np.array([cx, cy, 0]), rotation_y=angle, score=1)
             preds.append(prediction)
 
@@ -121,8 +121,8 @@ def get_thresholds(scores: np.ndarray, num_gt, num_sample_pts=41):
 
 def clean_data(gt_anno, dt_anno, current_class, difficulty):
     CLASS_NAMES = [
-        'car', 'pedestrian', 'cyclist', 'van', 'person_sitting', 'car',
-        'tractor', 'trailer'
+        'person', 'table', 'chair', 'couch', 'shelf', 'Robot',
+        'trashcan'
     ]
     MIN_HEIGHT = [40, 25, 25]
     MAX_OCCLUSION = [0, 1, 2]
@@ -142,7 +142,7 @@ def clean_data(gt_anno, dt_anno, current_class, difficulty):
         elif (current_cls_name == 'Pedestrian'.lower()
               and 'Person_sitting'.lower() == gt_name):
             valid_class = 0
-        elif (current_cls_name == 'Car'.lower() and 'Van'.lower() == gt_name):
+        elif (current_cls_name == 'Person'.lower() and 'Table'.lower() == gt_name):
             valid_class = 0
         else:
             valid_class = -1
@@ -817,14 +817,13 @@ def get_official_eval_result(gt_annos,
                              [0.5, 0.25, 0.25, 0.5, 0.25, 0.5, 0.5, 0.5]])
     min_overlaps = np.stack([overlap_mod, overlap_easy], axis=0)  # [2, 3, 5]
     class_to_name = {
-        0: 'Car',
-        1: 'Pedestrian',
-        2: 'Cyclist',
-        3: 'Van',
-        4: 'Person_sitting',
-        5: 'car',
-        6: 'tractor',
-        7: 'trailer',
+        0: 'Person',
+        1: 'Table',
+        2: 'Chair',
+        3: 'Couch',
+        4: 'Shelf',
+        5: 'Robot',
+        6: 'ThrashCan',
     }
     name_to_class = {v: n for n, v in class_to_name.items()}
     if not isinstance(current_classes, (list, tuple)):
@@ -884,14 +883,13 @@ def get_coco_eval_result(gt_annos,
                          z_axis=1,
                          z_center=1.0):
     class_to_name = {
-        0: 'Car',
-        1: 'Pedestrian',
-        2: 'Cyclist',
-        3: 'Van',
-        4: 'Person_sitting',
-        5: 'car',
-        6: 'tractor',
-        7: 'trailer',
+        0: 'Person',
+        1: 'Table',
+        2: 'Chair',
+        3: 'Couch',
+        4: 'Shelf',
+        5: 'Robot',
+        6: 'ThrashCan',
     }
     class_to_range = {
         0: [0.5, 1.0, 0.05],

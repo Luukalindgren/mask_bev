@@ -90,7 +90,7 @@ class FrameMasksToLabelInstanceMasks:
         self._num_pred = num_pred
 
     def __call__(self, masks: dict[KittiType, torch.Tensor]):
-        h, w = masks[KittiType.Car].shape
+        h, w = masks[KittiType.Person].shape
         labels = torch.zeros((self._num_pred,), dtype=torch.long)
         out_mask = torch.zeros((self._num_pred, h, w))
 
@@ -162,7 +162,7 @@ class FrameMetaData:
 
 class FrameDifficulty:
     def __init__(self):
-        self._car_like_labels = {KittiType.Car, KittiType.Van, KittiType.Truck}
+        self._car_like_labels = {KittiType.Person, KittiType.Table, KittiType.Chair}
 
     def __call__(self, x: dict):
         label_types = [b.type for b in x['labels_camera']]
