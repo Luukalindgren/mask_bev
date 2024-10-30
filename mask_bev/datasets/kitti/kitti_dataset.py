@@ -19,13 +19,13 @@ class KittiCalib:
 
 
 class KittiType(IntEnum):
-    Car = 0
-    Van = 1
-    Truck = 2
-    Pedestrian = 3
-    Person_sitting = 4
-    Cyclist = 5
-    Tram = 6
+    Person = 0
+    Table = 1
+    Chair = 2
+    Couch = 3
+    Shelf = 4
+    Robot = 5
+    TrashCan = 6
     Misc = 7
     DontCare = 8
 
@@ -100,11 +100,12 @@ class KittiDataset(Dataset):
         self._label_path = self._root_path.joinpath('data_object_label_2').joinpath(split).joinpath('label_2')
         self._velodyne = self._root_path.joinpath('data_object_velodyne').joinpath(split).joinpath('velodyne')
 
-        self._calib_files = sorted(self._calib_path.iterdir())
+        #Changed from multiple calib files to singular calib file
+        self._calib_file = self._calib_path.joinpath('dummy_calib.txt')
         self._label_files = sorted(self._label_path.iterdir())
         self._velodyne_files = sorted(self._velodyne.iterdir())
 
-        assert len(self._calib_files) == len(self._label_files)
+        #assert len(self._calib_files) == len(self._label_files)
         assert len(self._label_files) == len(self._velodyne_files)
 
         self._split_path = self._root_path.joinpath(self._split)
@@ -113,14 +114,14 @@ class KittiDataset(Dataset):
         return len(self._velodyne_files)
 
     def __getitem__(self, idx: int) -> KittiFrame:
-        calib = self._get_calib(idx)
+        calib = self._get_calib()
         labels_camera = self._get_labels_camera(idx)
         labels = self._labels_to_velodyne(labels_camera, calib)
         velodyne = self._get_velodyne(idx)
         return KittiFrame(calib, labels_camera, labels, velodyne)
 
-    def _get_calib(self, idx: int) -> KittiCalib:
-        with open(self._calib_files[idx], 'r') as f:
+    def _get_calib(self) -> KittiCalib:
+        with open(self._calib_file, 'r') as f:
             lines = f.readlines()
 
         P0 = np.array([float(info) for info in lines[0].split(' ')[1:13]
@@ -216,7 +217,7 @@ if __name__ == '__main__':
     max_car = 0
     max_x, max_y = 0, 0
     num_empty = 0
-    accepted_labels = {KittiType.Car, KittiType.Truck, KittiType.Van}
+    accepted_labels = {KittiType.Person, KittiType.Chair, KittiType.Table, KittiType.Couch}
     heights = []
     num_cars = 0
     for i in val_idx:
