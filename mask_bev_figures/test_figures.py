@@ -339,7 +339,7 @@ class TestFigures(unittest.TestCase):
                 img[np.linalg.norm(img, axis=2) < 40] = 255
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
                 Image.fromarray(np.uint8(img)).save(
-                    '/app/mask_bev/images/test.png')
+                    '/app/mask_bev/images/test_enc.png')
                 # plt.imshow(img)
                 # plt.show()
 
@@ -347,7 +347,7 @@ class TestFigures(unittest.TestCase):
                 w, h = gt_img.size
                 # gt_img = gt_img.resize((w * 2, h * 2)).crop((w / 2, h / 2, 3 * w / 2, 3 * h / 2))
                 gt_img.save(
-                    '/app/mask_bev/images/test2.png')
+                    '/app/mask_bev/images/test_gt.png')
 
                 all_masks_sig = []
                 num_detect = 0
