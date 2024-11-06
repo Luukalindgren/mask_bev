@@ -165,9 +165,9 @@ class TestFigures(unittest.TestCase):
         sample_idx = 0
         pl.seed_everything(45)
 
-        config_path = pathlib.Path('configs/kitti/02_kitti_point_mask_lower_lr_no_abs.yml')
+        config_path = pathlib.Path('configs/training/kitti/00_quick_test.yml')
         checkpoint = pathlib.Path(
-            '/home/william/Datasets/checkpoints/72_kitti_point_mask_lower_lr_no_abs/72_kitti_point_mask_lower_lr_no_abs-epoch=63-val_loss=4.438325.ckpt')
+            '/app/mask_bev/checkpoints/00_quick_test/00_quick_test-epoch=77-val_loss=2.597256.ckpt')
 
         # Load model
         exp_name = config_path.stem
@@ -213,7 +213,7 @@ class TestFigures(unittest.TestCase):
                 img[np.linalg.norm(img, axis=2) < 40] = 255
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
                 Image.fromarray(np.uint8(img)).save(
-                    '/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/kitti_enc.png')
+                    '/app/mask_bev/images/kitti_enc.png')
                 # plt.imshow(img)
                 # plt.show()
 
@@ -221,7 +221,8 @@ class TestFigures(unittest.TestCase):
                 w, h = gt_img.size
                 # gt_img = gt_img.resize((w * 2, h * 2)).crop((w / 2, h / 2, 3 * w / 2, 3 * h / 2))
                 gt_img.save(
-                    '/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/kitti_gt.png')
+                    '/app/mask_bev/images/kitti_gt.png')
+
 
                 all_masks_sig = []
                 num_detect = 0
@@ -234,7 +235,7 @@ class TestFigures(unittest.TestCase):
                         # plt.show()
 
                         Image.fromarray(np.uint8(log * 255)).save(
-                            f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/kitti_mask_{mask_num}.png')
+                            f'/app/mask_bev/images/kitti_mask_{mask_num}.png')
                         mask_num += 1
 
                         mask = model.sigmoid_img(pred_masks[-1][0][i]).unsqueeze(0) > 0.5
@@ -269,7 +270,7 @@ class TestFigures(unittest.TestCase):
                 w, h = pred_img.size
                 # pred_img = pred_img.resize((2 * w, 2 * h))
                 pred_img.save(
-                    f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/kitti_pred.png')
+                    f'/app/mask_bev/images/kitti_pred.png')
 
                 fig.tight_layout()
                 # fig.savefig('/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/fig-1.jpg',
