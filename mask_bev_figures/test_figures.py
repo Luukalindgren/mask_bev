@@ -28,7 +28,7 @@ class TestFigures(unittest.TestCase):
 
         config_path = pathlib.Path('configs/semantic_kitti/21_point_mask_data_aug_gentle.yml')
         checkpoint = pathlib.Path(
-            '/home/william/Datasets/checkpoints/21_point_mask_data_aug_gentle/21_point_mask_data_aug_gentle-epoch=21-val_loss=4.657507.ckpt')
+            '/app/mask_bev/checkpoints/21_point_mask_data_aug_gentle/21_point_mask_data_aug_gentle-epoch=21-val_loss=4.657507.ckpt')
 
         # Load model
         exp_name = config_path.stem
@@ -60,7 +60,7 @@ class TestFigures(unittest.TestCase):
                 # for _ in range(4):
                 point_clouds, (labels_gt, masks_gt), _ = next(iterator)
                 pathlib.Path(
-                    f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/mask_{j}').mkdir(
+                    f'/app/mask_bev/figs/mask_{j}').mkdir(
                     exist_ok=True)
                 instances_gt = torch.zeros((500, 500, 3))
                 for i, m in enumerate(masks_gt[0]):
@@ -84,7 +84,7 @@ class TestFigures(unittest.TestCase):
                 img[np.linalg.norm(img, axis=2) < 40] = 255
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
                 Image.fromarray(np.uint8(img)).save(
-                    f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/mask_{j}/enc_2.png')
+                    f'/app/mask_bev/figs/mask_{j}/enc_2.png')
                 plt.imshow(img)
                 plt.show()
 
@@ -92,7 +92,7 @@ class TestFigures(unittest.TestCase):
                 w, h = gt_img.size
                 # gt_img = gt_img.resize((w * 2, h * 2)).crop((w / 2, h / 2, 3 * w / 2, 3 * h / 2))
                 gt_img.save(
-                    f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/mask_{j}/gt_2.png')
+                    f'/app/mask_bev/figs/mask_{j}/gt_2.png')
 
                 all_masks_sig = []
                 num_detect = 0
@@ -105,7 +105,7 @@ class TestFigures(unittest.TestCase):
                         # plt.show()
 
                         Image.fromarray(np.uint8(log * 255)).save(
-                            f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/mask_{j}/{mask_num}.png')
+                            f'/app/mask_bev/figs/mask_{j}/{mask_num}.png')
                         mask_num += 1
 
                         mask = model.sigmoid_img(pred_masks[-1][0][i]).unsqueeze(0) > 0.5
@@ -138,10 +138,10 @@ class TestFigures(unittest.TestCase):
                 w, h = pred_img.size
                 # pred_img = pred_img.resize((2 * w, 2 * h))
                 pred_img.save(
-                    f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/mask_{j}/pred_2.png')
+                    f'/app/mask_bev/figs/mask_{j}/pred_2.png')
 
                 fig.tight_layout()
-                # fig.savefig('/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/fig-1.jpg',
+                # fig.savefig('/app/mask_bev/figs/fig-1.jpg',
                 #             bbox_inches='tight')
                 # for i in range(5):
                 #     plt.imshow(masks_gt[i])
@@ -165,9 +165,9 @@ class TestFigures(unittest.TestCase):
         sample_idx = 0
         pl.seed_everything(45)
 
-        config_path = pathlib.Path('configs/kitti/02_kitti_point_mask_lower_lr_no_abs.yml')
+        config_path = pathlib.Path('configs/training/kitti/00_quick_test.yml')
         checkpoint = pathlib.Path(
-            '/home/william/Datasets/checkpoints/72_kitti_point_mask_lower_lr_no_abs/72_kitti_point_mask_lower_lr_no_abs-epoch=63-val_loss=4.438325.ckpt')
+            '/app/mask_bev/checkpoints/00_quick_test/last.ckpt')
 
         # Load model
         exp_name = config_path.stem
@@ -213,7 +213,7 @@ class TestFigures(unittest.TestCase):
                 img[np.linalg.norm(img, axis=2) < 40] = 255
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
                 Image.fromarray(np.uint8(img)).save(
-                    '/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/kitti_enc.png')
+                    '/app/mask_bev/figs/kitti_enc.png')
                 # plt.imshow(img)
                 # plt.show()
 
@@ -221,7 +221,7 @@ class TestFigures(unittest.TestCase):
                 w, h = gt_img.size
                 # gt_img = gt_img.resize((w * 2, h * 2)).crop((w / 2, h / 2, 3 * w / 2, 3 * h / 2))
                 gt_img.save(
-                    '/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/kitti_gt.png')
+                    '/app/mask_bev/figs/kitti_gt.png')
 
                 all_masks_sig = []
                 num_detect = 0
@@ -234,7 +234,7 @@ class TestFigures(unittest.TestCase):
                         # plt.show()
 
                         Image.fromarray(np.uint8(log * 255)).save(
-                            f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/kitti_mask_{mask_num}.png')
+                            f'/app/mask_bev/figs/kitti_mask_{mask_num}.png')
                         mask_num += 1
 
                         mask = model.sigmoid_img(pred_masks[-1][0][i]).unsqueeze(0) > 0.5
@@ -269,10 +269,10 @@ class TestFigures(unittest.TestCase):
                 w, h = pred_img.size
                 # pred_img = pred_img.resize((2 * w, 2 * h))
                 pred_img.save(
-                    f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/kitti_pred.png')
+                    f'/app/mask_bev/figs/kitti_pred.png')
 
                 fig.tight_layout()
-                # fig.savefig('/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/fig-1.jpg',
+                # fig.savefig('/app/mask_bev/figs/fig-1.jpg',
                 #             bbox_inches='tight')
                 # for i in range(5):
                 #     plt.imshow(masks_gt[i])
@@ -291,9 +291,9 @@ class TestFigures(unittest.TestCase):
         sample_idx = 0
         pl.seed_everything(45)
 
-        config_path = pathlib.Path('configs/training/kitti/02_kitti_point_mask_lower_lr_no_abs.yml')
+        config_path = pathlib.Path('configs/training/kitti/00_quick_test.yml')
         checkpoint = pathlib.Path(
-            '/home/william/Datasets/checkpoints/72_kitti_point_mask_lower_lr_no_abs/72_kitti_point_mask_lower_lr_no_abs-epoch=63-val_loss=4.438325.ckpt')
+            '/app/mask_bev/checkpoints/00_quick_test/00_quick_test-epoch=77-val_loss=2.597256.ckpt')
 
         # Load model
         exp_name = config_path.stem
@@ -313,10 +313,12 @@ class TestFigures(unittest.TestCase):
         if gen_figs:
             dataloader = datamodule.val_dataloader()
             iterator = iter(dataloader)
-            for j in range(25):
+            for j in range(20):
                 # for i in range(20):
                 point_clouds, (labels_gt, masks_gt), metadata = next(iterator)
-
+                pathlib.Path(
+                    f'/app/mask_bev/figs/mask_{j}').mkdir(
+                    exist_ok=True)
                 instances_gt = torch.zeros((500, 500, 3))
                 for i, m in enumerate(masks_gt[0]):
                     r = np.random.uniform(0, 1)
@@ -339,7 +341,7 @@ class TestFigures(unittest.TestCase):
                 img[np.linalg.norm(img, axis=2) < 40] = 255
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
                 Image.fromarray(np.uint8(img)).save(
-                    '/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/kitti_enc.png')
+                    f'/app/mask_bev/figs/mask_{j}/enc_2.png')
                 # plt.imshow(img)
                 # plt.show()
 
@@ -347,7 +349,7 @@ class TestFigures(unittest.TestCase):
                 w, h = gt_img.size
                 # gt_img = gt_img.resize((w * 2, h * 2)).crop((w / 2, h / 2, 3 * w / 2, 3 * h / 2))
                 gt_img.save(
-                    '/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/kitti_gt.png')
+                    f'/app/mask_bev/figs/mask_{j}/gt_2.png')
 
                 all_masks_sig = []
                 num_detect = 0
@@ -360,15 +362,15 @@ class TestFigures(unittest.TestCase):
                         # plt.show()
 
                         Image.fromarray(np.uint8(log * 255)).save(
-                            f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/kitti_mask_{mask_num}.png')
+                            f'/app/mask_bev/figs/mask_{j}/{mask_num}.png')
                         mask_num += 1
 
                         mask = model.sigmoid_img(pred_masks[-1][0][i]).unsqueeze(0) > 0.5
                         all_masks_sig.append(mask)
                         num_detect += 1
                 print(num_detect)
-                if num_detect < 5:
-                    continue
+                # if num_detect < 5:
+                #     continue
                 pred = functools.reduce(torch.bitwise_or, all_masks_sig).squeeze().T
 
                 # plt.imshow(pred)
@@ -389,23 +391,23 @@ class TestFigures(unittest.TestCase):
                 axes[0].imshow(encoded_img)
                 axes[1].imshow(instances_gt[:, :])
                 axes[2].imshow(pred.T > 0, cmap='gray')
-                fig.suptitle(f'{j}')
+                # fig.suptitle(f'{j}')
 
                 pred_img = Image.fromarray(np.uint8(pred.detach().cpu().numpy().T * 255))
                 w, h = pred_img.size
                 # pred_img = pred_img.resize((2 * w, 2 * h))
                 pred_img.save(
-                    f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/kitti_pred.png')
+                    f'/app/mask_bev/figs/mask_{j}/pred_2.png')
 
                 fig.tight_layout()
-                # fig.savefig('/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/fig-1.jpg',
+                # fig.savefig('/app/mask_bev/figs/fig-1.jpg',
                 #             bbox_inches='tight')
                 # for i in range(5):
                 #     plt.imshow(masks_gt[i])
                 #     plt.show()
                 fig.show()
-                if j == 22:
-                    break
+                # if j == 22:
+                #     break
 
         trainer = pl.Trainer(accelerator='gpu', devices=[0], precision=32)
         # train
@@ -419,7 +421,7 @@ class TestFigures(unittest.TestCase):
 
         config_path = pathlib.Path('configs/semantic_kitti/21_point_mask_data_aug_gentle.yml')
         checkpoint = pathlib.Path(
-            '/home/william/Datasets/checkpoints/21_point_mask_data_aug_gentle/21_point_mask_data_aug_gentle-epoch=21-val_loss=4.657507.ckpt')
+            '/app/mask_bev/checkpoints/21_point_mask_data_aug_gentle/21_point_mask_data_aug_gentle-epoch=21-val_loss=4.657507.ckpt')
 
         # Load model
         exp_name = config_path.stem
@@ -451,7 +453,7 @@ class TestFigures(unittest.TestCase):
                 for _ in range(4):
                     point_clouds, (labels_gt, masks_gt), _ = next(iterator)
                 pathlib.Path(
-                    f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/mask_{j}').mkdir(
+                    f'/app/mask_bev/figs/mask_{j}').mkdir(
                     exist_ok=True)
                 instances_gt = torch.zeros((500, 500, 3))
                 for i, m in enumerate(masks_gt[0]):
@@ -475,7 +477,7 @@ class TestFigures(unittest.TestCase):
                 img[np.linalg.norm(img, axis=2) < 40] = 255
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
                 Image.fromarray(np.uint8(img)).save(
-                    f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/mask_{j}/enc_2.png')
+                    f'/app/mask_bev/figs/mask_{j}/enc_2.png')
                 # plt.imshow(img)
                 # plt.show()
 
@@ -483,7 +485,7 @@ class TestFigures(unittest.TestCase):
                 w, h = gt_img.size
                 # gt_img = gt_img.resize((w * 2, h * 2)).crop((w / 2, h / 2, 3 * w / 2, 3 * h / 2))
                 gt_img.save(
-                    f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/mask_{j}/gt_2.png')
+                    f'/app/mask_bev/figs/mask_{j}/gt_2.png')
 
                 all_masks_sig = []
                 num_detect = 0
@@ -496,7 +498,7 @@ class TestFigures(unittest.TestCase):
                         # plt.show()
 
                         Image.fromarray(np.uint8(log * 255)).save(
-                            f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/mask_{j}/{mask_num}.png')
+                            f'/app/mask_bev/figs/mask_{j}/{mask_num}.png')
                         mask_num += 1
 
                         mask = model.sigmoid_img(pred_masks[-1][0][i]).unsqueeze(0) > 0.5
@@ -529,10 +531,10 @@ class TestFigures(unittest.TestCase):
                 w, h = pred_img.size
                 # pred_img = pred_img.resize((2 * w, 2 * h))
                 pred_img.save(
-                    f'/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/mask_{j}/pred_2.png')
+                    f'/app/mask_bev/figs/mask_{j}/pred_2.png')
 
                 fig.tight_layout()
-                # fig.savefig('/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/fig-1.jpg',
+                # fig.savefig('/app/mask_bev/figs/fig-1.jpg',
                 #             bbox_inches='tight')
                 # for i in range(5):
                 #     plt.imshow(masks_gt[i])
@@ -558,7 +560,7 @@ class TestFigures(unittest.TestCase):
 
         config_path = pathlib.Path('configs/waymo/05_waymo_point_mask_data_aug_gentle_lower_lr.yml')
         checkpoint = pathlib.Path(
-            '/home/william/Datasets/checkpoints/05_waymo_point_mask_data_aug_gentle_lower_lr/last.ckpt')
+            '/app/mask_bev/checkpoints/05_waymo_point_mask_data_aug_gentle_lower_lr/last.ckpt')
 
         gen_figs = True
 
@@ -607,7 +609,7 @@ class TestFigures(unittest.TestCase):
             img[(img == img[0, 0])] = 255
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             Image.fromarray(np.uint8(img)).save(
-                '/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/pc_close.png')
+                '/app/mask_bev/figs/pc_close.png')
             plt.imshow(img)
             plt.show()
 
@@ -615,7 +617,7 @@ class TestFigures(unittest.TestCase):
             w, h = gt_img.size
             gt_img = gt_img.resize((w * 2, h * 2)).crop((w / 2, h / 2, 3 * w / 2, 3 * h / 2))
             gt_img.save(
-                '/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/pc_close_masks.png')
+                '/app/mask_bev/figs/pc_close_masks.png')
 
             all_masks_sig = []
             for i in range(len(pred_masks[-1][0])):
@@ -645,7 +647,7 @@ class TestFigures(unittest.TestCase):
             # axes[2].imshow(pred.T > 0, cmap='gray')
 
             fig.tight_layout()
-            fig.savefig('/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/fig-1.jpg',
+            fig.savefig('/app/mask_bev/figs/fig-1.jpg',
                         bbox_inches='tight')
             # for i in range(5):
             #     plt.imshow(masks_gt[i])
@@ -666,7 +668,7 @@ class TestFigures(unittest.TestCase):
 
         config_path = pathlib.Path('configs/waymo/05_waymo_point_mask_data_aug_gentle_lower_lr.yml')
         # checkpoint = pathlib.Path(
-        #     '/home/william/Datasets/checkpoints/05_waymo_point_mask_data_aug_gentle_lower_lr/last.ckpt')
+        #     '/app/mask_bev/checkpoints/05_waymo_point_mask_data_aug_gentle_lower_lr/last.ckpt')
 
         # Load model
         exp_name = config_path.stem
@@ -730,7 +732,7 @@ class TestFigures(unittest.TestCase):
 
             fig.tight_layout()
             if sample_idx == 7:
-                # fig.savefig('/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/pc.jpg',
+                # fig.savefig('/app/mask_bev/figs/pc.jpg',
                 #             bbox_inches='tight')
                 break
             fig.show()
@@ -842,14 +844,14 @@ class TestFigures(unittest.TestCase):
                          x=0.14477456146872966, y=-0.1315676315593811, z=0.0, distance=0.11999999999999968)
 
     def test_crop_pc(self):
-        pc_path = '/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/pc.jpg'
+        pc_path = '/app/mask_bev/figs/pc.jpg'
         img = Image.open(pc_path)
         w, h = img.size
         offset = 125
         img = img.crop((offset, offset, w - offset, h - offset))
-        # img.save('/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/pc_cropped.jpg')
+        # img.save('/app/mask_bev/figs/pc_cropped.jpg')
         img = img.resize((1000, 1000), resample=Image.BOX)
-        # img.save('/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/pc_cropped.jpg')
+        # img.save('/app/mask_bev/figs/pc_cropped.jpg')
 
     def test_pc_3d(self):
         root = 'data/SemanticKITTI'
@@ -864,7 +866,7 @@ class TestFigures(unittest.TestCase):
         sample_idx = 0
         config_path = pathlib.Path('configs/semantic_kitti/21_point_mask_data_aug_gentle.yml')
         checkpoint = pathlib.Path(
-            '/home/william/Datasets/checkpoints/21_point_mask_data_aug_gentle/21_point_mask_data_aug_gentle-epoch=21-val_loss=4.657507.ckpt')
+            '/app/mask_bev/checkpoints/21_point_mask_data_aug_gentle/21_point_mask_data_aug_gentle-epoch=21-val_loss=4.657507.ckpt')
 
         # Load model
         exp_name = config_path.stem
