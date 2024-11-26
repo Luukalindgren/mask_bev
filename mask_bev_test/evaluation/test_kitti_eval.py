@@ -38,7 +38,7 @@ class TestKittiEval(unittest.TestCase):
         print((cx, cy), (w, h), angle)
 
     def test_eval_from_output(self):
-        with open('/home/william/Datasets/KITTI/output_val_01/762.pkl', 'rb') as f:
+        with open('/app/mask_bev/data/KITTI/output_val_01/14.pkl', 'rb') as f:
             (cls, masks, labels_gt, masks_gt) = pickle.load(f)
         current_mask = 0
         for i in range(masks[-1][0].shape[0]):
