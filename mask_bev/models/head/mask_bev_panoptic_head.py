@@ -25,7 +25,7 @@ class MaskBevPanopticHead(nn.Module):
 
     def forward(self, x):
         img_meta = [Config(dict(metainfo={})) for _ in range(x[0].shape[0])]
-        print("img_meta:", img_meta)
+        #print("img_meta:", img_meta)
         return self._panoptic_head.forward(x, img_meta)
 
     def loss(self, cls, masks, label_gt, masks_gt, heights_pred, heights_gt):

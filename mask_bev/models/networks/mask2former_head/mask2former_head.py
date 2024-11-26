@@ -496,7 +496,7 @@ class Mask2FormerHead(MaskFormerHead):
         batch_img_metas = [
             data_sample.metainfo for data_sample in batch_data_samples
         ]
-        print("batch_img_metas:", batch_img_metas)
+        # print("batch_img_metas:", batch_img_metas)
         batch_size = len(batch_img_metas)
         mask_features, multi_scale_memorys = self.pixel_decoder(x)
         # multi_scale_memorys (from low resolution to high resolution)
