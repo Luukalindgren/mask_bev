@@ -18,7 +18,7 @@ class TestKittiRasterizer(unittest.TestCase):
         masks = self.rasterizer.get_mask(self.frame)
 
         self.assertTrue(isinstance(masks, dict))
-        keys = {KittiType.Car}
+        keys = {KittiType.Person}
         self.assertEquals(keys, set(masks.keys()))
         for k in keys:
             self.assertEqual((500, 440), masks[k].shape)
@@ -28,12 +28,12 @@ class TestKittiRasterizer(unittest.TestCase):
         masks = self.rasterizer.get_mask(self.frame)
 
         plt.title('vehicles')
-        plt.imshow(masks[KittiType.Car])
+        plt.imshow(masks[KittiType.Person])
         plt.show()
 
         pc = self.frame.points
         labels: [KittiLabel] = self.frame.labels
-        labels = list(filter(lambda label: label.type == KittiType.Car, labels))
+        labels = list(filter(lambda label: label.type == KittiType.Person, labels))
         box_labels = np.stack(
             [[*b.location,
               *b.dimensions,

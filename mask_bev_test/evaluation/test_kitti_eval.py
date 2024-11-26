@@ -13,11 +13,11 @@ from mask_bev.evaluation.kitti_eval import eval_kitti, Prediction
 class TestKittiEval(unittest.TestCase):
     def test_kitti_eval(self):
         labels = [[
-            KittiLabel(type=KittiType.Car, truncated=0.0, occluded=0, alpha=0.0, bbox=[0, 100, 10, 150],
+            KittiLabel(type=KittiType.Person, truncated=0.0, occluded=0, alpha=0.0, bbox=[0, 100, 10, 150],
                        dimensions=[10, 10, 10], location=[10, 10, 10], rotation_y=0.0) for _ in range(10)
         ] for _ in range(150)]
         predictions = [[
-            Prediction(type=KittiType.Car, alpha=0.0, dimensions=[10, 100, 10], location=[10, 10, 10], rotation_y=0.0,
+            Prediction(type=KittiType.Person, alpha=0.0, dimensions=[10, 100, 10], location=[10, 10, 10], rotation_y=0.0,
                        score=1.0) for _ in range(10)
         ] for _ in range(150)]
         output = eval_kitti(labels, predictions)
@@ -33,7 +33,7 @@ class TestKittiEval(unittest.TestCase):
         cnts = sorted(cnts, key=cv2.contourArea, reverse=True)
         cnt = cnts[0]
         ((cx, cy), (w, h), angle) = cv2.minAreaRect(cnt)
-        prediction = Prediction(type=KittiType.Car, alpha=0.0, dimensions=np.array([w, h, 0]),
+        prediction = Prediction(type=KittiType.Person, alpha=0.0, dimensions=np.array([w, h, 0]),
                                 location=np.array([cx, cy, 0]), rotation_y=angle, score=1)
         print((cx, cy), (w, h), angle)
 
