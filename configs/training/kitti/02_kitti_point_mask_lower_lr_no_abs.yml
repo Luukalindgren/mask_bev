@@ -9,7 +9,7 @@ optimiser_type: adam_w
 lr_schedulers_type: plateau
 differential_lr: False  # Here
 differential_lr_scaling: 0.1
-x_range: [ 0, 80 ]
+x_range: [ -40, 40 ]
 y_range: [ -40, 40 ]
 z_range: [ -20, 20 ]
 voxel_size: 0.16
