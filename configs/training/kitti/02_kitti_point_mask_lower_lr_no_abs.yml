@@ -1,6 +1,6 @@
 # General
 seed: 420
-checkpoint:
+checkpoint: last-v2
 
 # Model
 lr: 5.0e-5  # Here
@@ -30,7 +30,7 @@ backbone_use_abs_emb: False
 
 # Dataset
 dataset: kitti
-batch_size: 4
+batch_size: 2
 num_workers: 4
 pin_memory: True
 remove_unseen: True
