@@ -1,6 +1,6 @@
 # General
 seed: 420
-checkpoint: last-v2
+checkpoint: checkpoints/02_kitti_point_mask_lower_lr_no_abs/02_kitti_point_mask_lower_lr_no_abs-epoch=05-val_loss=4.099120.ckpt
 
 # Model
 lr: 5.0e-5  # Here
