@@ -1,24 +1,24 @@
 # General Settings
 seed: 420
-checkpoint: last-v2
+checkpoint: 
 
 # Model
 optimiser_type: adam_w  # AdamW optimizer
-lr: 1.0e-4  # Slightly higher learning rate for faster convergence
+lr: 5.0e-5  
 weight_decay: 1.0e-4
 lr_schedulers_type: plateau
 differential_lr: False
 differential_lr_scaling: 0.1
 
 # LiDAR Point Cloud Range & Voxelization
-x_range: [ -40, 40 ]  # x-range for the LiDAR point cloud (ensure objects are within this range)
-y_range: [ -40, 40 ]  # y-range for the LiDAR point cloud
+x_range: [ -10, 10 ]  # x-range for the LiDAR point cloud (ensure objects are within this range)
+y_range: [ -10, 10 ]  # y-range for the LiDAR point cloud
 z_range: [ -3, 3 ]  # Narrowing down the z-range for more relevant vertical data (usually -3 to 3 meters)
-voxel_size: 0.08  # Decrease voxel size for higher granularity (should improve BEV resolution)
+voxel_size: 0.06  # Decrease voxel size for higher granularity (should improve BEV resolution)
 num_queries: 45  # Number of object queries for Mask_bev
 
 # Head Settings (Adjusting for better performance)
-head_reverse_class_weights: True  # Enable reverse class weights if class imbalance is an issue
+head_reverse_class_weights: False  # Enable reverse class weights if class imbalance is an issue
 
 # Encoder Settings
 max_num_points: 32  # Number of points to sample per voxel (increased from default to capture more details)
@@ -32,34 +32,33 @@ backbone_use_abs_emb: False  # Use absolute positional embeddings (disable to av
 
 # Dataset Settings
 dataset: kitti  # Ensure dataset is set to KITTI
-batch_size: 4  # Increased batch size for better gradient stability
-num_workers: 4  # Keep this for optimal data loading (adjust based on system resources)
+batch_size: 4
+num_workers: 8  # Keep this for optimal data loading (adjust based on system resources)
 pin_memory: True
 remove_unseen: True  # Remove unseen data points from the training process to improve generalization
 shuffle_train: True  # Shuffle training data for better convergence
 min_num_points: 1  # Minimum number of points to consider when training on objects
 
-# Augmentation Settings (Reduced intensity for stable training)
 augmentations:
   - name: 'object_sample'
     dataset_root: 'data/KITTI'
-    num_sample: 10  # Keep this as is for object sampling
-  - name: 'object_noise'  # General noise applied to point clouds
+    num_sample: 15
+  - name: 'object_noise'
   - name: 'flip'
-    prob_flip_x: 0.0  # Disable flipping along the x-axis (objects often do not benefit from x-flip)
-    prob_flip_y: 0.3  # Slightly less flipping along the y-axis to avoid overfitting
+    prob_flip_x: 0
+    prob_flip_y: 0.5
   - name: 'rotate'
-    rotate_prob: 0.05  # Lower probability for rotation augmentation
-    rotation_range: 2.5  # Keep the range moderate (to avoid excessive distortions)
+    rotate_prob: 0.1
+    rotation_range: 2.5
   - name: 'global_noise'
-    prob_aug: 0.2  # Reduced global noise probability
+    prob_aug: 0.5
   - name: 'drop'
-    prob_drop: 0.05  # Lower the dropout rate to avoid too much data removal
-    per_point_drop_prob: 0.05  # Drop fewer points to avoid excessive sparsity
+    prob_drop: 0.1
+    per_point_drop_prob: 0.05
   - name: 'shuffle'
-    prob_shuffle: 0.3  # Slightly lower shuffle probability for stability
+    prob_shuffle: 0.5
   - name: 'jitter'
-    prob_jitter: 0.2  # Reduced jitter probability for more consistent data
-    jitter_std: 0.01  # Keep jitter standard deviation moderate to prevent noise
-    max_delta: 0.02  # Slightly reduced jittering range
-    intensity_std: 0.005  # Reduce intensity jitter
+    prob_jitter: 0.25
+    jitter_std: 0.01
+    intensity_std: 0.01
+
