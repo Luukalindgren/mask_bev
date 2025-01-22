@@ -11,10 +11,10 @@ differential_lr: False
 differential_lr_scaling: 0.1
 
 # LiDAR Point Cloud Range & Voxelization
-x_range: [ -10, 10 ]  # x-range for the LiDAR point cloud (ensure objects are within this range)
-y_range: [ -10, 10 ]  # y-range for the LiDAR point cloud
+x_range: [ -5, 5 ]  # x-range for the LiDAR point cloud (ensure objects are within this range)
+y_range: [ -5, 5 ]  # y-range for the LiDAR point cloud
 z_range: [ -3, 3 ]  # Narrowing down the z-range for more relevant vertical data (usually -3 to 3 meters)
-voxel_size: 0.06  # Decrease voxel size for higher granularity (should improve BEV resolution)
+voxel_size: 0.02  # Decrease voxel size for higher granularity (should improve BEV resolution)
 num_queries: 45  # Number of object queries for Mask_bev
 
 # Head Settings (Adjusting for better performance)
