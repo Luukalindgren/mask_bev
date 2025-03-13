@@ -22,7 +22,7 @@ val_files = all_files[train_size:]
 
 # Sort the files
 train_files.sort()
-val_files.sort()
+#val_files.sort()
 
 # Write train.txt
 with open(dataset_path / 'train.txt', 'w') as f:
