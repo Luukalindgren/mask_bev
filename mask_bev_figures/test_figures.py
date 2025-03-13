@@ -165,9 +165,9 @@ class TestFigures(unittest.TestCase):
         sample_idx = 0
         pl.seed_everything(45)
 
-        config_path = pathlib.Path('configs/training/kitti/02_kitti_point_mask_lower_lr_no_abs.yml')
+        config_path = pathlib.Path('configs/training/kitti/03_kitti_custom.yml')
         checkpoint = pathlib.Path(
-            '/app/mask_bev/checkpoints/02_kitti_point_mask_lower_lr_no_abs/02_kitti_point_mask_lower_lr_no_abs-epoch=03-val_loss=2.018758.ckpt')
+            'checkpoints/03_kitti_custom/03_kitti_custom-epoch=108-val_loss=3.508482.ckpt')
 
         # Load model
         exp_name = config_path.stem
@@ -296,7 +296,7 @@ class TestFigures(unittest.TestCase):
 
         config_path = pathlib.Path('configs/training/kitti/03_kitti_custom.yml')
         checkpoint = pathlib.Path(
-            'checkpoints/03_kitti_custom/03_kitti_custom-epoch=32-val_loss=3.911559.ckpt')
+            'checkpoints/03_kitti_custom/03_kitti_custom-epoch=108-val_loss=3.508482.ckpt')
 
         # Load model
         exp_name = config_path.stem
@@ -330,7 +330,7 @@ class TestFigures(unittest.TestCase):
                 pathlib.Path(
                     f'/app/mask_bev/images/mask_{j}').mkdir(
                     exist_ok=True)
-                instances_gt = torch.zeros((333, 333, 3))
+                instances_gt = torch.zeros((500, 500, 3))
                 for i, m in enumerate(masks_gt[0]):
                     r = np.random.uniform(0, 1)
                     g = np.random.uniform(0, 1)
