@@ -139,10 +139,7 @@ def clean_data(gt_anno, dt_anno, current_class, difficulty):
         valid_class = -1
         if (gt_name == current_cls_name):
             valid_class = 1
-        elif (current_cls_name == 'Pedestrian'.lower()
-              and 'Person_sitting'.lower() == gt_name):
-            valid_class = 0
-        elif (current_cls_name == 'Person'.lower() and 'Table'.lower() == gt_name):
+        elif (current_cls_name == 'Couch'.lower() and 'Chair'.lower() == gt_name):
             valid_class = 0
         else:
             valid_class = -1
