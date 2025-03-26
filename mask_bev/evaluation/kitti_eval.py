@@ -124,7 +124,7 @@ def clean_data(gt_anno, dt_anno, current_class, difficulty):
         'person', 'table', 'chair', 'couch', 'shelf', 'Robot',
         'trashcan'
     ]
-    MIN_HEIGHT = [40, 25, 25]
+    MIN_HEIGHT = [15, 5, 5]
     MAX_OCCLUSION = [0, 1, 2]
     MAX_TRUNCATION = [0.15, 0.3, 0.5]
     dc_bboxes, ignored_gt, ignored_dt = [], [], []
@@ -809,10 +809,10 @@ def get_official_eval_result(gt_annos,
         gt_annos and dt_annos must contains following keys:
         [bbox, location, dimensions, rotation_y, score]
     '''
-    overlap_mod = np.array([[0.7, 0.5, 0.5, 0.7, 0.5, 0.7, 0.7, 0.7],
-                            [0.7, 0.5, 0.5, 0.7, 0.5, 0.7, 0.7, 0.7],
-                            [0.7, 0.5, 0.5, 0.7, 0.5, 0.7, 0.7, 0.7]])
-    overlap_easy = np.array([[0.7, 0.5, 0.5, 0.7, 0.5, 0.5, 0.5, 0.5],
+    overlap_mod = np.array([[0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+                            [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+                            [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]])
+    overlap_easy = np.array([[0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
                              [0.5, 0.25, 0.25, 0.5, 0.25, 0.5, 0.5, 0.5],
                              [0.5, 0.25, 0.25, 0.5, 0.25, 0.5, 0.5, 0.5]])
     min_overlaps = np.stack([overlap_mod, overlap_easy], axis=0)  # [2, 3, 5]
