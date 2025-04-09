@@ -1,3 +1,28 @@
+## Luuka's Modifications
+
+- Changed all the KITTI types to match our custom dataset's labes (Person, Table, Chair, Couch, Shelf, Robot, TrashCan, Misc, DontCare)
+- Modified some threshold values to match these new, smaller objects
+- Modified hardcoded paths to all be inside the project folders
+- Two new helper scripts: `scripts/generate_train_val_sets.py` and `scripts/rename_frames_seq.py`
+    - First generates train.txt and val.txt files
+    - Second renames the label and point cloud files to `000001.extension` format, but this is already applied to the dataset
+- New config file `configs/training/kitti/03_kitti_custom.yml`, made to be compatible with TIERS pc.
+
+## Luuka's Instructions
+
+1. Move the custom dataset `Custom_KITTI_Dataset_Final` to the project `data/` folder and rename it to `KITTI`
+     - If you have the original KITTI dataset, give it temporary name, and switch these namings when you want to switch datasets
+     - The 'active' dataset is the one named `data/KITTI`
+2. Make sure you are on the project root when running commands.
+3. Generate train.txt and val.txt with: `python scripts/generate_train_val_sets.py`
+4. Follow the original authors instructions
+
+*(Keep renaming the `images/` dir to keep the last tests images, since the testing code writes the images to that directory and rewrites if there is something.)*
+
+## Back to the original authors README:
+
+---
+
 # MaskBEV: Joint Object Detection and Footprint Completion for Bird's-eye View 3D Point Clouds
 
 This is a work in progress migration from mmlabs libraries 1.x to 2.0.
