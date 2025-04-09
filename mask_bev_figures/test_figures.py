@@ -191,7 +191,7 @@ class TestFigures(unittest.TestCase):
                 # for i in range(20):
                 point_clouds, (labels_gt, masks_gt), metadata = next(iterator)
                 pathlib.Path(
-                    f'/app/mask_bev/images/mask_{j}').mkdir(
+                    f'images/mask_{j}').mkdir(
                     exist_ok=True)
                 instances_gt = torch.zeros((500, 500, 3))
                 for i, m in enumerate(masks_gt[0]):
@@ -215,7 +215,7 @@ class TestFigures(unittest.TestCase):
                 img[np.linalg.norm(img, axis=2) < 40] = 255
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
                 Image.fromarray(np.uint8(img)).save(
-                    '/app/mask_bev/images/mask_{j}/enc_seq.png')
+                    'images/mask_{j}/enc_seq.png')
                 # plt.imshow(img)
                 # plt.show()
 
@@ -223,7 +223,7 @@ class TestFigures(unittest.TestCase):
                 w, h = gt_img.size
                 # gt_img = gt_img.resize((w * 2, h * 2)).crop((w / 2, h / 2, 3 * w / 2, 3 * h / 2))
                 gt_img.save(
-                    '/app/mask_bev/images/mask_{j}/gt_seq.png')
+                    'images/mask_{j}/gt_seq.png')
 
 
                 all_masks_sig = []
@@ -237,7 +237,7 @@ class TestFigures(unittest.TestCase):
                         # plt.show()
 
                         Image.fromarray(np.uint8(log * 255)).save(
-                            f'/app/mask_bev/images/kitti_mask_{mask_num}.png')
+                            f'images/kitti_mask_{mask_num}.png')
                         mask_num += 1
 
                         mask = model.sigmoid_img(pred_masks[-1][0][i]).unsqueeze(0) > 0.5
@@ -272,7 +272,7 @@ class TestFigures(unittest.TestCase):
                 w, h = pred_img.size
                 # pred_img = pred_img.resize((2 * w, 2 * h))
                 pred_img.save(
-                    f'/app/mask_bev/images/mask_{j}/pred_seq.png')
+                    f'images/mask_{j}/pred_seq.png')
 
                 fig.tight_layout()
                 # fig.savefig('/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/fig-1.jpg',
@@ -328,7 +328,7 @@ class TestFigures(unittest.TestCase):
 
 
                 pathlib.Path(
-                    f'/app/mask_bev/images/mask_{j}').mkdir(
+                    f'images/mask_{j}').mkdir(
                     exist_ok=True)
                 instances_gt = torch.zeros((500, 500, 3))
                 for i, m in enumerate(masks_gt[0]):
@@ -352,7 +352,7 @@ class TestFigures(unittest.TestCase):
                 img[np.linalg.norm(img, axis=2) < 40] = 255
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
                 Image.fromarray(np.uint8(img)).save(
-                    f'/app/mask_bev/images/mask_{j}/enc.png')
+                    f'images/mask_{j}/enc.png')
                 # plt.imshow(img)
                 # plt.show()
 
@@ -360,7 +360,7 @@ class TestFigures(unittest.TestCase):
                 w, h = gt_img.size
                 # gt_img = gt_img.resize((w * 2, h * 2)).crop((w / 2, h / 2, 3 * w / 2, 3 * h / 2))
                 gt_img.save(
-                    f'/app/mask_bev/images/mask_{j}/gt.png')
+                    f'images/mask_{j}/gt.png')
 
                 all_masks_sig = []
                 num_detect = 0
@@ -373,7 +373,7 @@ class TestFigures(unittest.TestCase):
                         # plt.show()
 
                         Image.fromarray(np.uint8(log * 255)).save(
-                            f'/app/mask_bev/images/mask_{j}/{mask_num}.png')
+                            f'images/mask_{j}/{mask_num}.png')
                         mask_num += 1
 
                         mask = model.sigmoid_img(pred_masks[-1][0][i]).unsqueeze(0) > 0.5
@@ -408,7 +408,7 @@ class TestFigures(unittest.TestCase):
                 w, h = pred_img.size
                 # pred_img = pred_img.resize((2 * w, 2 * h))
                 pred_img.save(
-                    f'/app/mask_bev/images/mask_{j}/pred.png')
+                    f'images/mask_{j}/pred.png')
 
                 fig.tight_layout()
                 # fig.savefig('/home/william/Documents/Writing/publication_IROS2023_WilliamGuimont-Martin/figs/fig-1.jpg',

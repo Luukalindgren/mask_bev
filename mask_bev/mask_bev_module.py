@@ -340,7 +340,7 @@ class MaskBevModule(pl.LightningModule):
         self.log_losses(batch_size, loss_dict, 'val')
 
         print('Writing validation output')
-        log_path = pathlib.Path('/app/mask_bev/data/KITTI/output_val_01').expanduser()
+        log_path = pathlib.Path('data/KITTI/output_val_01').expanduser()
         log_path.mkdir(exist_ok=True)
         file_path = log_path / f'{batch_idx}.pkl'
         with open(file_path, 'wb') as f:
